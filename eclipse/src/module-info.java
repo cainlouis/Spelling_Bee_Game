@@ -1,2 +1,0 @@
-module spelling_bee {
-}
