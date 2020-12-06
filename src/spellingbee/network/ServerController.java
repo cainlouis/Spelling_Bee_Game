@@ -34,6 +34,6 @@ public class ServerController {
 		 *      return spellingBee.getCenter();
 		 * }
 		 * else if ( ..... )
-		return null;
+		return null; */
 	}
 }
