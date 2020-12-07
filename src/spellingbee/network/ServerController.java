@@ -11,7 +11,7 @@ public class ServerController {
 	// Since we are storing the object as an interface, you can use any type of ISpellingBeeGame object.
 	// This means you can work with either the SpellingBeeGame OR SimpleSpellingBeeGame objects and can
 	// seamlessly change between the two.
-	private ISpellingBeeGame spellingBee = new SpellingBeeGame();
+	private ISpellingBeeGame spellingBee = new ISpellingBeeGame();
 	
 	/**
 	 * Action is the method where the protocol translation takes place.
