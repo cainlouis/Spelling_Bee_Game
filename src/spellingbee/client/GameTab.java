@@ -1,11 +1,17 @@
 package spellingbee.client;
 
-import java.awt.TextField;
-
+import spellingbee.network.*;
+import javafx.application.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.stage.*;
 import javafx.scene.*;
+import javafx.scene.paint.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 
 public class GameTab extends Tab {
-	public GameTab() {
-		TextField tx = new TextField("Hello");
-	}
+	private Client client;
+	
+	
 }
