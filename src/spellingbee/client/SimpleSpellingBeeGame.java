@@ -10,6 +10,7 @@ public class SimpleSpellingBeeGame implements ISpellingBeeGame {
 	private char let5;
 	private char let6;
 	private char let7;
+	private int score = 0;
 	
 	public SimpleSpellingBeeGame(char let1, char let2, char let3, char let4, char let5, char let6, char let7) {
 		this.let1 = 'u';
@@ -23,7 +24,35 @@ public class SimpleSpellingBeeGame implements ISpellingBeeGame {
 	
 	@Override 
 	public int getPointsForWord(String attempt) {
-		return 50;
+		int wordPoints = 0;
+		if (attempt.contains(Character.toString(centerLet4))) {
+			if (attempt.length() == 4) {
+				wordPoints = 1;
+				this.score += wordPoints;
+				return wordPoints;
+			}
+			if (attempt.length() > 4) {
+				wordPoints = attempt.length();
+				this.score += wordPoints;
+				return wordPoints;
+			}
+			if (containAll(attempt)) {
+				wordPoints = attempt.length() + 7;
+				this.score += wordPoints;
+				return wordPoints;
+			}
+		}
+		return 0;
+	}
+	
+	public boolean containAll(String attempt) {
+		String[] letters = {Character.toString(let1), Character.toString(let2), Character.toString(let3), Character.toString(centerLet4), Character.toString(let5), Character.toString(let6), Character.toString(let7)};
+		for (int i = 0; i < letters.length; i++) {
+			if (!(attempt.contains(letters[i]))) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	@Override 
@@ -44,7 +73,7 @@ public class SimpleSpellingBeeGame implements ISpellingBeeGame {
 	
 	@Override
 	public int getScore() {
-		return 5;
+		return score;
 	}
 	
 	@Override 

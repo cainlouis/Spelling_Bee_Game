@@ -1,5 +1,6 @@
 package spellingbee.network;
 
+import spellingbee.client.SimpleSpellingBeeGame;
 import spellingbee.server.*;
 
 /**
@@ -11,7 +12,7 @@ public class ServerController {
 	// Since we are storing the object as an interface, you can use any type of ISpellingBeeGame object.
 	// This means you can work with either the SpellingBeeGame OR SimpleSpellingBeeGame objects and can
 	// seamlessly change between the two.
-	private ISpellingBeeGame spellingBee = new SpellingBeeGame();
+	private ISpellingBeeGame spellingBee = new SimpleSpellingBeeGame('u', 't', 'o', 'n', 'l', 'i', 's');
 	
 	/**
 	 * Action is the method where the protocol translation takes place.
@@ -28,12 +29,17 @@ public class ServerController {
 		 * store it into private fields.
 		 * You should use the spellingBee object to make various calls and here is where your communication
 		 * code/protocol should go.
-		 * For example, based on the samples in the assignment:
-		 * if (inputLine.equals("getCenter")) {
-		 * 	// client has requested getCenter. Call the getCenter method which returns a String of 7 letters
-		 *      return spellingBee.getCenter();
-		 * }
-		 * else if ( ..... )
-		return null; */
+		 * For example, based on the samples in the assignment:*/
+		 if (inputLine.equals("getCenter")) {
+		 // client has requested getCenter. Call the getCenter method which returns a String of 7 letters
+			 return "" + spellingBee.getCenterLetter();
+		 }
+		 else if (inputLine.equals("getAll")) {
+			 return spellingBee.getAllLetters();
+		 }
+		 else if (inputLine.contains("wordCheck")) {
+			 //call validation method and pointForWord and return answer + points
+		 }
+		return null;
 	}
 }
