@@ -1,6 +1,6 @@
 type to get the info needed
 getAllLetters - return the 7 letters 
-getCenterLetter - return the center letter
+getCenter - return the center letter
 wordCheck;x - x being the word the user want to check. return a string containing "good: y", y being the number of points they get for the word, if word is valid and "not a word: y" if not/
 
  
