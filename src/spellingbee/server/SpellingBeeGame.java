@@ -3,6 +3,7 @@ package spellingbee.server;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -57,8 +58,44 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	
 	@Override
 	public int getPointsForWord(String attempt) {
-		// TODO Auto-generated method stub
-		return 0;
+		// If the attempt is smaller than 4 letters return 0;
+		if (attempt.length() < 4 ) {
+			return 0;
+		}
+		
+		// If it doesn't contain center letter, return 0
+		if (!attempt.contains("" + getCenterLetter())) {
+			return 0;
+		}
+		
+		int score = 0;
+		for (int i = 0; i < attempt.length(); i++) {
+			if (this.letters.contains("" + attempt.charAt(i))) {
+				score++;
+			} else {
+				// If letters does not contain a letter in the attempt just return 0
+				return 0;
+			}
+		}
+		score = (score <= 4) ? 1 : score;
+		
+		// If attempt length is smaller than 7 it cannot be a panagram, therefore, return score
+		if (attempt.length() < 7) {
+			return score;
+		}
+		
+		char[] sortedAttempt = attempt.toCharArray();
+		char[] sortedLetters = this.letters.toCharArray();
+		Arrays.sort(sortedAttempt);
+		Arrays.sort(sortedLetters);
+		// TODO: Add clause if attempt uses all the letters but also has extra (Ex: some doubles)
+		// String -> Remove duplicates -> char[]
+		// This will currently work with attempts that have exactly the same 7 letters
+		if (sortedAttempt.equals(sortedLetters)) {
+			score += 7;
+		}
+		
+		return score;
 	}
 
 	@Override
