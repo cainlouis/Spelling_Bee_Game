@@ -100,8 +100,18 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 
 	@Override
 	public String getMessage(String attempt) {
-		// TODO Auto-generated method stub
-		return null;
+		int points = getPointsForWord(attempt);
+
+		if (points == 0) {
+			// TODO: Bad reasons
+			// Smaller than 4 chars =>
+			// Doesn't contain center letter =>
+			// Contains letters that aren't valid
+			return "bad";
+		}
+		
+		this.score += points;
+		return "good";
 	}
 
 	@Override
@@ -116,8 +126,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 
 	@Override
 	public int getScore() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.score;
 	}
 
 	@Override
