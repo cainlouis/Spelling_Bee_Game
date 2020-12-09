@@ -67,20 +67,22 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	public int getPointsForWord(String attempt) {
 		int wordPoints = 0;
 		if (attempt.contains(Character.toString(this.centerLet))) {
-			if (attempt.length() == 4) {
-				wordPoints = 1;
-				this.score += wordPoints;
-				return wordPoints;
-		}
-			if (attempt.length() > 4) {
-				wordPoints = attempt.length();
-				this.score += wordPoints;
-				return wordPoints;
-			}
-			if (containAll(attempt)) {
-				wordPoints = attempt.length() + 7;
-				this.score += wordPoints;
-				return wordPoints;
+			if (isValid(attempt)) {
+				if (attempt.length() == 4) {
+					wordPoints = 1;
+					this.score += wordPoints;
+					return wordPoints;
+				}
+				if (attempt.length() > 4) {
+					wordPoints = attempt.length();
+					this.score += wordPoints;
+					return wordPoints;
+				}
+				if (containAll(attempt)) {
+					wordPoints = attempt.length() + 7;
+					this.score += wordPoints;
+					return wordPoints;
+				}
 			}
 		}
 		return 0;
@@ -162,6 +164,16 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 			}
 		}
 		return possibleWordForCombination;
+	}
+	
+	private boolean isValid(String attempt) {
+		Set<String> possibleWordForCombination = findPossibleWordForCombination();
+		for (String word : possibleWordForCombination) {
+			if (attempt.equals(word)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
