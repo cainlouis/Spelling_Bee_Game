@@ -97,6 +97,10 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		
 		return score;
 	}
+	
+	/*public int getPointsForWord(String attempt) {
+		
+	} */
 
 	@Override
 	public String getMessage(String attempt) {
