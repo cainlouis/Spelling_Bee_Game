@@ -1,10 +1,15 @@
 package spellingbee.server;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+
+
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -16,97 +21,57 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	// Generate brackets in constructor for performance
 	private int[] brackets;
 	private int score;
+	private char centerLet;
 	
 	SpellingBeeGame() {
-		Random random = new Random();
-		Set<String> letterCombinations = createWordsFromFile("\\data\\letterCombinations.txt");
-		int target = random.nextInt(letterCombinations.size());
-		int i = 0;
-		for (String letters : letterCombinations) {
-			if (i == target) {
-				this.letters = letters;
-				break;
-			}
-			i++;
-		}
-		// TODO: For performance purposes make possibleWords only actual possible words
-		this.possibleWords = createWordsFromFile("\\data\\english.txt");
+		this.letters = createLettersCombination();
+		this.possibleWords = createWordsFromFile();
+		this.centerLet = getCenterLetter();
 	}
 	
 	SpellingBeeGame(String letters) {
 		this.letters = letters;
-		// TODO: For performance purposes make possibleWords only actual possible words
-		this.possibleWords = createWordsFromFile("\\data\\english.txt");
+		this.possibleWords = createWordsFromFile();
+		this.centerLet = getCenterLetter();
 	}
 	
-	private Set<String> createWordsFromFile(String path) {
-		Set<String> list = new HashSet<String>();
-		BufferedReader reader;
+	private String createLettersCombination() {
+		Random random = new Random();
+		List<String> lines = new ArrayList<String>();
 		try {
-			reader = new BufferedReader(new FileReader(path));
-			String line = reader.readLine();
-			while (line != null) {
-				list.add(line);
-				line = reader.readLine();
+			Path p = Paths.get("\\data\\letterCombinations.txt");
+			lines = Files.readAllLines(p);
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		String comb = lines.get(random.nextInt(lines.size()));
+		return comb;
+	}
+	
+	private Set<String> createWordsFromFile() {
+		Set<String> list = new HashSet<String>();
+		try {
+			Path p = Paths.get("\\data\\english.txt");
+			List<String> lines = Files.readAllLines(p);
+			for (String s : lines) {
+				list.add(s);
 			}
-			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
 	
-	@Override
+	//TO-DO: check if the word is a word from the list of possibleWordForCombination
 	public int getPointsForWord(String attempt) {
-		// If the attempt is smaller than 4 letters return 0;
-		if (attempt.length() < 4 ) {
-			return 0;
-		}
-		
-		// If it doesn't contain center letter, return 0
-		if (!attempt.contains("" + getCenterLetter())) {
-			return 0;
-		}
-		
-		int score = 0;
-		for (int i = 0; i < attempt.length(); i++) {
-			if (this.letters.contains("" + attempt.charAt(i))) {
-				score++;
-			} else {
-				// If letters does not contain a letter in the attempt just return 0
-				return 0;
-			}
-		}
-		score = (score <= 4) ? 1 : score;
-		
-		// If attempt length is smaller than 7 it cannot be a panagram, therefore, return score
-		if (attempt.length() < 7) {
-			return score;
-		}
-		
-		char[] sortedAttempt = attempt.toCharArray();
-		char[] sortedLetters = this.letters.toCharArray();
-		Arrays.sort(sortedAttempt);
-		Arrays.sort(sortedLetters);
-		// TODO: Add clause if attempt uses all the letters but also has extra (Ex: some doubles)
-		// String -> Remove duplicates -> char[]
-		// This will currently work with attempts that have exactly the same 7 letters
-		if (sortedAttempt.equals(sortedLetters)) {
-			score += 7;
-		}
-		
-		return score;
-	}
-	
-	/*
-	  public int getPointsForWord(String attempt) {
 		int wordPoints = 0;
-		if (attempt.contains(Character.toString(getCenterLetter()))) {
+		if (attempt.contains(Character.toString(this.centerLet))) {
 			if (attempt.length() == 4) {
 				wordPoints = 1;
 				this.score += wordPoints;
 				return wordPoints;
-			}
+		}
 			if (attempt.length() > 4) {
 				wordPoints = attempt.length();
 				this.score += wordPoints;
@@ -121,6 +86,8 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		return 0;
 	} 
 	
+	//Gotta change it to make sure the 7 letters are used
+	//Not a panaram
 	public boolean containAll(String attempt) {
 		for (int i = 0; i < attempt.length(); i++) {
 			if (!(letters.contains(Character.toString(attempt.charAt(i))))) {
@@ -128,7 +95,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 			}
 		}
 		return true;
-	} */
+	}
 
 	@Override
 	public String getMessage(String attempt) {
@@ -153,7 +120,8 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 
 	@Override
 	public char getCenterLetter() {
-		return this.letters.charAt(0);
+		Random ran = new Random();
+		return this.letters.charAt(ran.nextInt(this.letters.length()));
 	}
 
 	@Override
@@ -178,7 +146,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 			//if the word contain the center letter and its length is greater than 4.
 			//The words containing less than four letters give 0 point so no point in adding them.
 			if (word.length() >= 4) {
-				if (word.contains(Character.toString(getCenterLetter()))) {
+				if (word.contains(Character.toString(this.centerLet))) {
 					int tracker = 0;
 					//add to the tracker if our string of letters contain a character from the word 
 					for (int i = 0; i < word.length(); i++) {
