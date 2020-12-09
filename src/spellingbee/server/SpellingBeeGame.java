@@ -30,12 +30,14 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 			i++;
 		}
 		// TODO: For performance purposes make possibleWords only actual possible words
+		//Call findPossibleCombination - nael
 		this.possibleWords = createWordsFromFile("\\data\\english.txt");
 	}
 	
 	SpellingBeeGame(String letters) {
 		this.letters = letters;
 		// TODO: For performance purposes make possibleWords only actual possible words
+		//Call findPossibleCombination - nael 
 		this.possibleWords = createWordsFromFile("\\data\\english.txt");
 	}
 	
@@ -133,6 +135,31 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	public int[] getBrackets() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private Set<String> findPossibleCombination() {
+		Set<String> possibleCombination = new HashSet<String>();
+		//Go through all the word of the file
+		for (String word : this.possibleWords) {
+			//if the word contain the center letter and its length is greater than 4.
+			//The words containing less than four letters give 0 point so no point in adding them.
+			if (word.length() >= 4) {
+				if (word.contains(Character.toString(getCenterLetter()))) {
+					int tracker = 0;
+					//add to the tracker if our string of letters contain a character from the word 
+					for (int i = 0; i < word.length(); i++) {
+						if (this.letters.contains(Character.toString(word.charAt(i)))) {
+						tracker++;
+						}
+					}
+					//if letters contain all the characters of the word, add the word to the possibleCombination
+					if (word.length() == tracker) {
+						possibleCombination.add(word);
+					}
+				}
+			}
+		}
+		return possibleCombination;
 	}
 
 }
