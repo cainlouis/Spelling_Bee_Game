@@ -14,7 +14,6 @@ import java.util.Random;
 import java.util.Set;
 
 public class SpellingBeeGame implements ISpellingBeeGame {
-	// [0] = Center letter
 	private String letters;
 	private Set<String> foundWords;
 	private Set<String> possibleWords;
@@ -35,6 +34,10 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		this.centerLet = getCenterLetter();
 	}
 	
+	/**
+	 * Goes through the file of combination and randomly assign one to a String
+	 * @return String comb
+	 */
 	private String createLettersCombination() {
 		Random random = new Random();
 		List<String> lines = new ArrayList<String>();
@@ -49,6 +52,10 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		return comb;
 	}
 	
+	/**
+	 * Goes through the English text file and put them into a list then put them into a hashSet.
+	 * @return HashSet list.
+	 */
 	private Set<String> createWordsFromFile() {
 		Set<String> list = new HashSet<String>();
 		try {
@@ -63,7 +70,12 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		return list;
 	}
 	
-	//TO-DO: check if the word is a word from the list of possibleWordForCombination
+	/**
+	 * Check if the word is a word of the list of possible words for the combination given to the user. 
+	 * Update the score.
+	 * @param attempt
+	 * @return int. the number of points the user get for the point.
+	 */
 	public int getPointsForWord(String attempt) {
 		int wordPoints = 0;
 		if (attempt.contains(Character.toString(this.centerLet))) {
@@ -88,21 +100,21 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		return 0;
 	} 
 	
-	//Gotta change it to make sure the 7 letters are used
-	//Not a panaram
+	/**
+	 * Verifies if the 7 letters of the combination are used
+	 * @param attempt
+	 * @return boolean. false if the 7 letters are not used, true if they are.
+	 */
 	public boolean containAll(String attempt) {
 		String wordLet = "";
 		for (int i = 0; i < attempt.length(); i++) {
+			//add the character to the wordLet if it isn't already in.
 			 if (!(wordLet.contains(Character.toString(attempt.charAt(i))))) {
 			 	wordLet += attempt.charAt(i);
 			 }
-			 
-			/* 
-			if (!(letters.contains(Character.toString(wordLet.charAt(i))))) {
-				return false;
-			} */
 		}
-		if (wordLet.length() > this.letters.length()) {
+		//If the seven letters are not used return false
+		if (wordLet.length() < this.letters.length()) {
 			 return false;
 		 }
 		return true;
@@ -119,8 +131,6 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 			// Contains letters that aren't valid
 			return "bad";
 		}
-		
-		this.score += points;
 		return "good";
 	}
 
@@ -175,6 +185,11 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		return possibleWordForCombination;
 	}
 	
+	/**
+	 * Goes through the file of possible combination with the letters given to the user.
+	 * @param attempt. The word entered by the user.
+	 * @return a boolean. True if the word the user entered is a word of the list, false if not.
+	 */
 	private boolean isValid(String attempt) {
 		Set<String> possibleWordForCombination = findPossibleWordForCombination();
 		for (String word : possibleWordForCombination) {
