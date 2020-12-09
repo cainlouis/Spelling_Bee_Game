@@ -91,11 +91,20 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	//Gotta change it to make sure the 7 letters are used
 	//Not a panaram
 	public boolean containAll(String attempt) {
+		String wordLet = "";
 		for (int i = 0; i < attempt.length(); i++) {
-			if (!(letters.contains(Character.toString(attempt.charAt(i))))) {
+			 if (!(wordLet.contains(Character.toString(attempt.charAt(i))))) {
+			 	wordLet += attempt.charAt(i);
+			 }
+			 
+			/* 
+			if (!(letters.contains(Character.toString(wordLet.charAt(i))))) {
 				return false;
-			}
+			} */
 		}
+		if (wordLet.length() > this.letters.length()) {
+			 return false;
+		 }
 		return true;
 	}
 
