@@ -98,8 +98,36 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		return score;
 	}
 	
-	/*public int getPointsForWord(String attempt) {
-		
+	/*
+	  public int getPointsForWord(String attempt) {
+		int wordPoints = 0;
+		if (attempt.contains(Character.toString(getCenterLetter()))) {
+			if (attempt.length() == 4) {
+				wordPoints = 1;
+				this.score += wordPoints;
+				return wordPoints;
+			}
+			if (attempt.length() > 4) {
+				wordPoints = attempt.length();
+				this.score += wordPoints;
+				return wordPoints;
+			}
+			if (containAll(attempt)) {
+				wordPoints = attempt.length() + 7;
+				this.score += wordPoints;
+				return wordPoints;
+			}
+		}
+		return 0;
+	} 
+	
+	public boolean containAll(String attempt) {
+		for (int i = 0; i < attempt.length(); i++) {
+			if (!(letters.contains(Character.toString(attempt.charAt(i))))) {
+				return false;
+			}
+		}
+		return true;
 	} */
 
 	@Override
