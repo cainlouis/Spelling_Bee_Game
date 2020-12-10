@@ -13,6 +13,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * 
+ * @author Jose Carlos Betancourt, Sergio Arturo Segrega, Nael Louis
+ *
+ */
 public class SpellingBeeGame implements ISpellingBeeGame {
 	private String letters;
 	private Set<String> foundWords;
@@ -22,12 +27,19 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	private int score;
 	private char centerLet;
 	
+	/**
+	 * 
+	 */
 	public SpellingBeeGame() {
 		this.letters = createLettersCombination();
 		this.possibleWords = createWordsFromFile();
 		this.centerLet = setCenterLetter();
 	}
 	
+	/**
+	 * 
+	 * @param letters
+	 */
 	public SpellingBeeGame(String letters) {
 		this.letters = letters;
 		this.possibleWords = createWordsFromFile();
@@ -73,8 +85,9 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	/**
 	 * Check if the word is a word of the list of possible words for the combination given to the user. 
 	 * Update the score.
+	 * getter method for the number of points the user get for the word.
 	 * @param attempt
-	 * @return int. the number of points the user get for the point.
+	 * @return int
 	 */
 	public int getPointsForWord(String attempt) {
 		int wordPoints = 0;
@@ -118,8 +131,13 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 			 return false;
 		 }
 		return true;
-	}
-
+	} 
+	
+	/**
+	 * Override the method getMessage from ISpellingBeeGame
+	 * getter method for the message
+	 * @return String
+	 */
 	@Override
 	public String getMessage(String attempt) {
 		int points = getPointsForWord(attempt);
@@ -133,27 +151,50 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		}
 		return "good";
 	}
-
+	
+	/**
+	 * Override the method getAllLetters from ISpellingBeeGame interface
+	 * @return String letters
+	 */
 	@Override
 	public String getAllLetters() {
 		return this.letters;
 	}
-
+	
+	/**
+	 * Override the method getCenterLetters from ISpellingBeeGame interface
+	 * getter method for centerLet
+	 * @return char
+	 */
 	@Override
 	public char getCenterLetter() {
 		return this.centerLet;
 	}
 	
+	/**
+	 * setter method for centerLet
+	 * @return char
+	 */
 	private char setCenterLetter() {
 		Random ran = new Random();
 		return this.letters.charAt(ran.nextInt(this.letters.length()));
 	}
-
+	
+	/**
+	 * Override the method getScore from ISpellingBeeGame interface
+	 * getter method for score
+	 * @return int
+	 */
 	@Override
 	public int getScore() {
 		return this.score;
 	}
-
+	
+	/**
+	 * Override the method getBrackets from ISpellingBeeGame interface
+	 * getter method for brackets
+	 * @return int array
+	 */
 	@Override
 	public int[] getBrackets() {
 		// TODO Auto-generated method stub

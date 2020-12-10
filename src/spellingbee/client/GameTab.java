@@ -2,20 +2,23 @@ package spellingbee.client;
 
 import spellingbee.network.*;
 import spellingbee.server.SpellingBeeGame;
-import javafx.application.*;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.stage.*;
-import javafx.scene.*;
-import javafx.scene.paint.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
+/**
+ * Extends the Tab abstract class and set the GameTab
+ * @author Nael Louis
+ *
+ */
 public class GameTab extends Tab {
 	private Client client;
 	GameTabSetting event;
 	
+	/**
+	 * Parameterized constructor creates the GameTab
+	 * @param client
+	 */
 	public GameTab(Client client) {
 		super("Game"); 
 		this.client = client;
@@ -41,16 +44,21 @@ public class GameTab extends Tab {
 		Button centerBtn = new Button();
 		int pos = 0;
 		
+		//Goes through the array of letter and assign each to a button
 		for (int i = 0; i < letters.length; i++) {
 			if (letters[i].equals(centerLet)) {
 				centerBtn = new Button(letters[i]);
+				//set the background color
 				centerBtn.setStyle("-fx-background-color: lavenderblush");
+				//create the event that is passed to GameTabSetting
 				event = new GameTabSetting(userInput, letters[i], "addText");
 				centerBtn.setOnAction(event);
 			}
 			else {
 				buttonsLet[pos] = new Button(letters[i]);
+				//set the background color
 				buttonsLet[pos].setStyle("-fx-background-color: aliceblue");
+				//create the event that is passed to GameTabSetting
 				event = new GameTabSetting(userInput, letters[i], "addText");
 				buttonsLet[pos].setOnAction(event);
 				pos++;
@@ -79,7 +87,6 @@ public class GameTab extends Tab {
 		TextField resp = new TextField("not a word");
 		resp.setPrefWidth(125);
 		
-		//resp.setStyle("-fx-background-color: aliceblue");
 		//TextField points = new TextField("" + game.getScore());
 		TextField points = new TextField("1");
 		points.setPrefWidth(125);
