@@ -57,6 +57,7 @@ public class SimpleSpellingBeeGame implements ISpellingBeeGame {
 	
 	@Override 
 	public String getMessage(String attempt) {
+		getPointsForWord(attempt);
 		return "You won x points";
 	}
 	
