@@ -37,8 +37,9 @@ public class ServerController {
 		 else if (inputLine.equals("getAll")) {
 			 return spellingBee.getAllLetters();
 		 }
-		 else if (inputLine.contains("wordCheck")) {
-			 //call validation method and pointForWord and return answer + points
+		 else if (inputLine.contains("submit")) {
+			 String[] fromGame = inputLine.split(":");
+			 return spellingBee.getMessage(fromGame[1]) + ":" + spellingBee.getScore();
 		 }
 		return null;
 	}

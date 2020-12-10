@@ -11,7 +11,7 @@ import javafx.stage.*;
 
 /**
  * This class create the stage for the GameTab, the ScoreTab, and the HighScore tab. Create a client object which is passed to the tabs. 
- * @author Nael Louis
+ * @author 
  *
  */
 public class SpellingBeeClient extends Application {
@@ -21,19 +21,17 @@ public class SpellingBeeClient extends Application {
 		Group root = new Group();
 		TabPane tab = new TabPane();
 		GameTab game = new GameTab(client);
-		//ScoreTab score = new ScoreTab(client);
+		ScoreTab score = new ScoreTab(client);
 		//HighScore highScore = new HighScore(Client);
-		VBox overall = new VBox();
 		
 		tab.getTabs().add(game);
-		//tab.getTabs().add(score);
+		tab.getTabs().add(score);
 		//tab.getTabs.add(highScore);
 		tab.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		overall.getChildren().add(tab);
-		root.getChildren().add(overall);
+		root.getChildren().add(tab);
 		
-		Scene scene = new Scene(root, 650, 300);
-		scene.setFill(Color.BLACK);
+		Scene scene = new Scene(root, 250, 300);
+		scene.setFill(Color.LIGHTSKYBLUE);
 		
 		stage.setScene(scene);
 		stage.setTitle("Spelling Bee");

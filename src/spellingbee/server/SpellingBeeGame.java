@@ -22,16 +22,16 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	private int score;
 	private char centerLet;
 	
-	SpellingBeeGame() {
+	public SpellingBeeGame() {
 		this.letters = createLettersCombination();
 		this.possibleWords = createWordsFromFile();
-		this.centerLet = getCenterLetter();
+		this.centerLet = setCenterLetter();
 	}
 	
-	SpellingBeeGame(String letters) {
+	public SpellingBeeGame(String letters) {
 		this.letters = letters;
 		this.possibleWords = createWordsFromFile();
-		this.centerLet = getCenterLetter();
+		this.centerLet = setCenterLetter();
 	}
 	
 	/**
@@ -105,7 +105,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	 * @param attempt
 	 * @return boolean. false if the 7 letters are not used, true if they are.
 	 */
-	public boolean containAll(String attempt) {
+	private boolean containAll(String attempt) {
 		String wordLet = "";
 		for (int i = 0; i < attempt.length(); i++) {
 			//add the character to the wordLet if it isn't already in.
@@ -141,6 +141,10 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 
 	@Override
 	public char getCenterLetter() {
+		return this.centerLet;
+	}
+	
+	private char setCenterLetter() {
 		Random ran = new Random();
 		return this.letters.charAt(ran.nextInt(this.letters.length()));
 	}
