@@ -12,7 +12,7 @@ public class ServerController {
 	// Since we are storing the object as an interface, you can use any type of ISpellingBeeGame object.
 	// This means you can work with either the SpellingBeeGame OR SimpleSpellingBeeGame objects and can
 	// seamlessly change between the two.
-	private ISpellingBeeGame spellingBee = new SimpleSpellingBeeGame('u', 't', 'o', 'n', 'l', 'i', 's');
+	private ISpellingBeeGame spellingBee = new SimpleSpellingBeeGame();
 	
 	/**
 	 * Action is the method where the protocol translation takes place.
@@ -37,8 +37,9 @@ public class ServerController {
 		 else if (inputLine.equals("getAll")) {
 			 return spellingBee.getAllLetters();
 		 }
-		 else if (inputLine.contains("wordCheck")) {
-			 //call validation method and pointForWord and return answer + points
+		 else if (inputLine.contains("submit")) {
+			 String[] fromGame = inputLine.split(":");
+			 return spellingBee.getMessage(fromGame[1]) + ":" + spellingBee.getScore();
 		 }
 		return null;
 	}

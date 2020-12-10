@@ -2,6 +2,11 @@ package spellingbee.client;
 
 import spellingbee.server.*;
 
+/**
+ * This class is a draft class for SpellingBeeGame
+ * @author Nael Louis
+ *
+ */
 public class SimpleSpellingBeeGame implements ISpellingBeeGame {
 	private char let1;
 	private char let2;
@@ -12,7 +17,10 @@ public class SimpleSpellingBeeGame implements ISpellingBeeGame {
 	private char let7;
 	private int score = 0;
 	
-	public SimpleSpellingBeeGame(char let1, char let2, char let3, char let4, char let5, char let6, char let7) {
+	/**
+	 * Unparameterized constructor.
+	 */
+	public SimpleSpellingBeeGame() {
 		this.let1 = 'u';
 		this.let2 = 't';
 		this.let3 = 'o';
@@ -22,6 +30,13 @@ public class SimpleSpellingBeeGame implements ISpellingBeeGame {
 		this.let7 = 's';
 	}
 	
+	/**
+	 * Check if the word is a word of the list of possible words for the combination given to the user. 
+	 * Update the score.
+	 * getter method for the number of points the user get for the word.
+	 * @param attempt
+	 * @return int
+	 */
 	@Override 
 	public int getPointsForWord(String attempt) {
 		int wordPoints = 0;
@@ -45,37 +60,73 @@ public class SimpleSpellingBeeGame implements ISpellingBeeGame {
 		return 0;
 	}
 	
-	public boolean containAll(String attempt) {
-		String[] letters = {Character.toString(let1), Character.toString(let2), Character.toString(let3), Character.toString(centerLet4), Character.toString(let5), Character.toString(let6), Character.toString(let7)};
-		for (int i = 0; i < letters.length; i++) {
-			if (!(attempt.contains(letters[i]))) {
-				return false;
-			}
+	/**
+	 * Verifies if the 7 letters of the combination are used
+	 * @param attempt
+	 * @return boolean. false if the 7 letters are not used, true if they are.
+	 */
+	private boolean containAll(String attempt) {
+		String letters = "" + let1 + let2 + let3 + centerLet4 + let5 + let6 + let7;
+		String wordLet = "";
+		for (int i = 0; i < attempt.length(); i++) {
+			//add the character to the wordLet if it isn't already in.
+			 if (!(wordLet.contains(Character.toString(attempt.charAt(i))))) {
+			 	wordLet += attempt.charAt(i);
+			 }
 		}
+		//If the seven letters are not used return false
+		if (wordLet.length() < letters.length()) {
+			 return false;
+		 }
 		return true;
 	}
 	
+	/**
+	 * Override the method getMessage from ISpellingBeeGame
+	 * getter method for the message
+	 * @return String
+	 */
 	@Override 
 	public String getMessage(String attempt) {
+		getPointsForWord(attempt);
 		return "You won x points";
 	}
 	
+	/**
+	 * Override the method getAllLetters from ISpellingBeeGame interface
+	 * @return String letters
+	 */
 	@Override
 	public String getAllLetters() {
 		String allLetters = "" + let1 + let2 + let3 + centerLet4 + let5 + let6 + let7;
 		return allLetters;
 	}
 	
+	/**
+	 * Override the method getCenterLetters from ISpellingBeeGame interface
+	 * getter method for centerLet
+	 * @return char
+	 */
 	@Override 
 	public char getCenterLetter() {
 		return centerLet4;
 	}
 	
+	/**
+	 * Override the method getScore from ISpellingBeeGame interface
+	 * getter method for score
+	 * @return int
+	 */
 	@Override
 	public int getScore() {
 		return score;
 	}
 	
+	/**
+	 * Override the method getBrackets from ISpellingBeeGame interface
+	 * getter method for brackets
+	 * @return int array
+	 */
 	@Override 
 	public int[] getBrackets() {
 		int[] thresolds = {50, 100, 150, 180, 200};
