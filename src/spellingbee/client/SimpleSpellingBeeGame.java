@@ -45,13 +45,19 @@ public class SimpleSpellingBeeGame implements ISpellingBeeGame {
 		return 0;
 	}
 	
-	public boolean containAll(String attempt) {
-		String[] letters = {Character.toString(let1), Character.toString(let2), Character.toString(let3), Character.toString(centerLet4), Character.toString(let5), Character.toString(let6), Character.toString(let7)};
-		for (int i = 0; i < letters.length; i++) {
-			if (!(attempt.contains(letters[i]))) {
-				return false;
-			}
+	private boolean containAll(String attempt) {
+		String letters = "" + let1 + let2 + let3 + centerLet4 + let5 + let6 + let7;
+		String wordLet = "";
+		for (int i = 0; i < attempt.length(); i++) {
+			//add the character to the wordLet if it isn't already in.
+			 if (!(wordLet.contains(Character.toString(attempt.charAt(i))))) {
+			 	wordLet += attempt.charAt(i);
+			 }
 		}
+		//If the seven letters are not used return false
+		if (wordLet.length() < letters.length()) {
+			 return false;
+		 }
 		return true;
 	}
 	
