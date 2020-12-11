@@ -21,7 +21,7 @@ import java.util.Set;
  */
 public class SpellingBeeGame implements ISpellingBeeGame {
 	private String letters;
-	private Set<String> foundWords;
+	private Set<String> foundWords = new HashSet<String>();
 	private Set<String> possibleWords;
 	// Generate brackets in constructor for performance
 	private int[] brackets;
@@ -36,6 +36,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		this.letters = createLettersCombination();
 		this.possibleWords = createWordsFromFile();
 		this.centerLet = setCenterLetter();
+		foundWords.add("");
 	}
 	
 	/**
@@ -58,7 +59,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		Random random = new Random();
 		List<String> lines = new ArrayList<String>();
 		try {
-			Path p = Paths.get("\\data\\letterCombinations.txt");
+			Path p = Paths.get("letterCombinations.txt");
 			lines = Files.readAllLines(p);
 		}
 		catch(IOException e) {
@@ -75,7 +76,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	private Set<String> createWordsFromFile() {
 		Set<String> list = new HashSet<String>();
 		try {
-			Path p = Paths.get("\\data\\english.txt");
+			Path p = Paths.get("english.txt");
 			List<String> lines = Files.readAllLines(p);
 			for (String s : lines) {
 				list.add(s);
