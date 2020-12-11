@@ -37,18 +37,19 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		this.possibleWords = createWordsFromFile();
 		this.centerLet = setCenterLetter();
 		foundWords.add("");
+		this.brackets = getBrackets();
 	}
 	
 	/**
+	 * Overloaded constructor that uses a predetermined 7 letters for the game instead of generating it randomly
 	 * 
 	 * @param letters
 	 */
-	//I don't know what this constructor is for so you'll have to write the comment for it - nael
-	//Also I don't know how it should be written so please verify if it's alright - nael
 	public SpellingBeeGame(String letters) {
 		this.letters = letters;
 		this.possibleWords = createWordsFromFile();
 		this.centerLet = setCenterLetter();
+		this.brackets = getBrackets();
 	}
 	
 	/**
@@ -205,8 +206,15 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	 */
 	@Override
 	public int[] getBrackets() {
+		int[] brackets = new int[5];
+		int total = this.possibleWords.size();
+		brackets[0] = (int)Math.round(total * 0.25);
+		brackets[1] = (int)Math.round(total * 0.5);
+		brackets[2] = (int)Math.round(total * 0.75);
+		brackets[3] = (int)Math.round(total * 0.9);
+		brackets[4] = total;
 		// TODO Auto-generated method stub
-		return null;
+		return brackets;
 	}
 	
 	/**
