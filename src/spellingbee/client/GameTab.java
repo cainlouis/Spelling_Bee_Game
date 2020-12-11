@@ -84,11 +84,11 @@ public class GameTab extends Tab {
 				
 		//TextFiel for the answer of the server if the word is valid
 		//TextField resp = new TextField("" + game.getMessage(userInput.getText()));
-		TextField resp = new TextField("not a word");
+		TextField resp = new TextField("welcome");
 		resp.setPrefWidth(125);
 		
 		//TextField points = new TextField("" + game.getScore());
-		TextField points = new TextField("1");
+		TextField points = new TextField("0");
 		points.setPrefWidth(125);
 		
 		//Setting up the event handler on the function buttons

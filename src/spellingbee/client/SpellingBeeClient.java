@@ -26,7 +26,7 @@ public class SpellingBeeClient extends Application {
 		TabPane tab = new TabPane();
 		GameTab game = new GameTab(client);
 		ScoreTab score = new ScoreTab(client);
-		//HighScore highScore = new HighScore(Client);
+		//HighScoreTab highScore = new HighScoreTab(Client);
 		
 		//adding them to the tab object
 		tab.getTabs().add(game);
