@@ -206,13 +206,15 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	@Override
 	public int[] getBrackets() {
 		int[] brackets = new int[5];
-		int total = this.possibleWords.size();
+		int total = 0;
+		for (String word : this.possibleWords) {
+			total += getPointsForWord(word);
+		}
 		brackets[0] = (int)Math.round(total * 0.25);
 		brackets[1] = (int)Math.round(total * 0.5);
 		brackets[2] = (int)Math.round(total * 0.75);
 		brackets[3] = (int)Math.round(total * 0.9);
 		brackets[4] = total;
-		// TODO Auto-generated method stub
 		return brackets;
 	}
 	
