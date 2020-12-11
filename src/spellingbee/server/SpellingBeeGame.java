@@ -14,7 +14,8 @@ import java.util.Random;
 import java.util.Set;
 
 /**
- * 
+ * This class is the true spellingBee game where the answer of the user is verified and where the other class get
+ * their information such as the score of the user, the message as a reply for the word and the brackets for the game.
  * @author Jose Carlos Betancourt, Sergio Arturo Segrega, Nael Louis
  *
  */
@@ -28,7 +29,8 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	private char centerLet;
 	
 	/**
-	 * 
+	 * Unparameterized constructor that call method to initialize the field letters, possibleWords, and
+	 * centerLet
 	 */
 	public SpellingBeeGame() {
 		this.letters = createLettersCombination();
@@ -40,6 +42,8 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	 * 
 	 * @param letters
 	 */
+	//I don't know what this constructor is for so you'll have to write the comment for it - nael
+	//Also I don't know how it should be written so please verify if it's alright - nael
 	public SpellingBeeGame(String letters) {
 		this.letters = letters;
 		this.possibleWords = createWordsFromFile();
@@ -92,25 +96,28 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	public int getPointsForWord(String attempt) {
 		int wordPoints = 0;
 		if (attempt.contains(Character.toString(this.centerLet))) {
-			if (isValid(attempt)) {
-				if (attempt.length() == 4) {
-					wordPoints = 1;
-					this.score += wordPoints;
-					return wordPoints;
-				}
-				if (attempt.length() > 4) {
-					wordPoints = attempt.length();
-					this.score += wordPoints;
-					return wordPoints;
-				}
-				if (containAll(attempt)) {
-					wordPoints = attempt.length() + 7;
-					this.score += wordPoints;
-					return wordPoints;
+			if (isNotAlreadyFound(attempt)) {
+				if (isValid(attempt)) {
+					if (attempt.length() == 4) {
+						wordPoints = 1;
+						this.score += wordPoints;
+						return wordPoints;
+					}
+					if (attempt.length() > 4) {
+						wordPoints = attempt.length();
+						this.score += wordPoints;
+						return wordPoints;
+					}
+					if (containAll(attempt)) {
+						wordPoints = attempt.length() + 7;
+						this.score += wordPoints;
+						return wordPoints;
+					}
+					this.foundWords.add(attempt);
 				}
 			}
 		}
-		return 0;
+		return wordPoints;
 	} 
 	
 	/**
@@ -243,6 +250,21 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Goes through the foundWords arraylist and return false if the attempts is equal to a word
+	 * inside the list, return true if the word has not already been found.
+	 * @param attempt
+	 * @return boolean
+	 */
+	private boolean isNotAlreadyFound(String attempt) {
+		for (String s : this.foundWords) {
+			if (attempt.equals(s)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }

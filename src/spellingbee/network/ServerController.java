@@ -12,7 +12,7 @@ public class ServerController {
 	// Since we are storing the object as an interface, you can use any type of ISpellingBeeGame object.
 	// This means you can work with either the SpellingBeeGame OR SimpleSpellingBeeGame objects and can
 	// seamlessly change between the two.
-	private ISpellingBeeGame spellingBee = new SimpleSpellingBeeGame();
+	private ISpellingBeeGame spellingBee = new SpellingBeeGame();
 	
 	/**
 	 * Action is the method where the protocol translation takes place.
@@ -41,6 +41,11 @@ public class ServerController {
 			 String[] fromGame = inputLine.split(":");
 			 return spellingBee.getMessage(fromGame[1]) + ":" + spellingBee.getScore();
 		 }
+		 //Change the inputLine
+		 /*else if (inputLine.equals()) {
+			 String[] highScore = inputLine.split(":");
+			 return ""+ highScore[1] + ":" + spellingBee.getScore();
+		 } */
 		return null;
 	}
 }
