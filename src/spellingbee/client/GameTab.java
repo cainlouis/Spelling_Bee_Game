@@ -13,7 +13,7 @@ import javafx.scene.layout.*;
  */
 public class GameTab extends Tab {
 	private Client client;
-	GameTabSetting event;
+	private GameTabSetting event;
 	
 	/**
 	 * Parameterized constructor creates the GameTab

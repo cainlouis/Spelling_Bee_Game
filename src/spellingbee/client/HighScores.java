@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class HighScores {
-	ArrayList<String> scores;
+	ArrayList<Score> scores;
 	HighScores(){
 		scores = new ArrayList<String>();
 	}
@@ -19,7 +19,8 @@ public class HighScores {
 	}
 	
 	public void addResult(String player, String score){
-		Score playerScore = new Score(player,score);
+		//parse score
+		Score playerScore = new Score(player, score);
 		scores.addAll(playerScore);
 	}
 	
