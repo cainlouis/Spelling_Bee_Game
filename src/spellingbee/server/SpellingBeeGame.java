@@ -152,13 +152,12 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		int points = getPointsForWord(attempt);
 
 		if (points == 0) {
-			// TODO: Bad reasons
-			// Smaller than 4 chars =>
-			// Doesn't contain center letter =>
-			// Contains letters that aren't valid
-			return "bad";
+			if (attempt.length() < 4) {
+				return "Attempt needs to be bigger than 3";
+			}
+			return "Attempt needs to have a center letter";
 		}
-		return "good";
+		return "Perfect!";
 	}
 	
 	/**
