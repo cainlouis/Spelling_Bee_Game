@@ -36,7 +36,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		this.letters = createLettersCombination();
 		this.possibleWords = createWordsFromFile();
 		this.centerLet = setCenterLetter();
-		foundWords.add("");
+		this.foundWords.add("");
 		this.brackets = getBrackets();
 	}
 	
@@ -100,24 +100,33 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		if (attempt.contains(Character.toString(this.centerLet))) {
 			if (isNotAlreadyFound(attempt)) {
 				if (isValid(attempt)) {
+					if (containAll(attempt)) {
+						wordPoints = attempt.length() + 7;
+						this.score += wordPoints;
+						this.foundWords.add(attempt);
+						return wordPoints;
+					}
 					if (attempt.length() == 4) {
 						wordPoints = 1;
 						this.score += wordPoints;
+						this.foundWords.add(attempt);
 						return wordPoints;
 					}
 					if (attempt.length() > 4) {
 						wordPoints = attempt.length();
 						this.score += wordPoints;
+						this.foundWords.add(attempt);
 						return wordPoints;
 					}
-					if (containAll(attempt)) {
-						wordPoints = attempt.length() + 7;
-						this.score += wordPoints;
-						return wordPoints;
-					}
-					this.foundWords.add(attempt);
+				}
+				else {
+					return -2;
 				}
 			}
+			else {
+				return -1;
+			}
+			
 		}
 		return wordPoints;
 	} 
@@ -150,7 +159,9 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	@Override
 	public String getMessage(String attempt) {
 		int points = getPointsForWord(attempt);
-
+		
+		if (points == -1) {
+		}
 		if (points == 0) {
 			if (attempt.length() < 4) {
 				return "Attempt needs to be bigger than 3";
