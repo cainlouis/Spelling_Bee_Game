@@ -37,7 +37,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		this.possibleWords = createWordsFromFile();
 		this.centerLet = setCenterLetter();
 		foundWords.add("");
-		this.brackets = getBrackets();
+		this.brackets = createBrackets();
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		this.letters = letters;
 		this.possibleWords = createWordsFromFile();
 		this.centerLet = setCenterLetter();
-		this.brackets = getBrackets();
+		this.brackets = createBrackets();
 	}
 	
 	/**
@@ -199,12 +199,11 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	}
 	
 	/**
-	 * Override the method getBrackets from ISpellingBeeGame interface
-	 * getter method for brackets
+	 * createBrackets() generates the bracket scores at the construction of the object,
+	 * this is a performance function that serves to not have to generate brackets on each getBracket() call.
 	 * @return int array
 	 */
-	@Override
-	public int[] getBrackets() {
+	public int[] createBrackets() {
 		int[] brackets = new int[5];
 		int total = 0;
 		for (String word : this.possibleWords) {
@@ -215,7 +214,18 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		brackets[2] = (int)Math.round(total * 0.75);
 		brackets[3] = (int)Math.round(total * 0.9);
 		brackets[4] = total;
+		
 		return brackets;
+	}
+	
+	/**
+	 * Override the method getBrackets from ISpellingBeeGame interface
+	 * getter method for brackets
+	 * @return int array
+	 */
+	@Override
+	public int[] getBrackets() {
+		return this.brackets;
 	}
 	
 	/**
