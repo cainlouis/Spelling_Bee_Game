@@ -23,9 +23,6 @@ public class GameTab extends Tab {
 		super("Game"); 
 		this.client = client;
 		
-		//Creating the object to access the getter methods
-		//SpellingBeeGame game = new SpellingBeeGame();
-		
 		//Get letters from the server
 		String[] letters = new String[7];
 		String response = this.client.sendAndWaitMessage("getAll"); 
@@ -83,11 +80,9 @@ public class GameTab extends Tab {
 		functBtn.setAlignment(Pos.CENTER);
 				
 		//TextFiel for the answer of the server if the word is valid
-		//TextField resp = new TextField("" + game.getMessage(userInput.getText()));
 		TextField resp = new TextField("welcome");
 		resp.setPrefWidth(125);
 		
-		//TextField points = new TextField("" + game.getScore());
 		TextField points = new TextField("0");
 		points.setPrefWidth(125);
 		
