@@ -34,9 +34,9 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	 */
 	public SpellingBeeGame() {
 		this.letters = createLettersCombination();
-		this.possibleWords = findPossibleWordForCombination(createWordsFromFile());
 		System.out.println(this.possibleWords);
 		this.centerLet = setCenterLetter();
+		this.possibleWords = findPossibleWordForCombination(createWordsFromFile());
 		this.foundWords.add("");
 		this.brackets = createBrackets();
 	}
@@ -81,7 +81,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 			Path p = Paths.get("english.txt");
 			List<String> lines = Files.readAllLines(p);
 			for (String s : lines) {
-				list.add(s);
+				list.add(s.toLowerCase());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -253,7 +253,6 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 					}
 					//if letters contain all the characters of the word, add the word to the possibleCombination
 					if (word.length() == tracker) {
-						System.out.println(word);
 						possibleWordForCombination.add(word);
 					}
 				}
