@@ -40,6 +40,15 @@ public class ServerController {
 		 else if (inputLine.contains("submit")) {
 			 String[] fromGame = inputLine.split(":");
 			 return spellingBee.getMessage(fromGame[1]) + ":" + spellingBee.getScore();
+		 } else if (inputLine.contains("getBrackets")) {
+			 String bracketString = "";
+			 int[] brackets = spellingBee.getBrackets();
+			 for (int i = 0; i < brackets.length; i++) {
+				 bracketString += brackets[i] + ",";
+			 }
+			 return bracketString;
+		 } else if (inputLine.contains("getScore")) {
+			 return Integer.toString(spellingBee.getScore());
 		 }
 		 //Change the inputLine
 		 /*else if (inputLine.equals()) {
