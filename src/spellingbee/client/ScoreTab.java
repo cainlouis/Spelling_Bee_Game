@@ -21,7 +21,6 @@ public class ScoreTab extends Tab {
 		for (int i = 0; i < 5; i++) {
 			bracketsScores[i] = Integer.parseInt(brackets[i]);
 		}
-		this.refresh();
 		
 		this.scoreNames = new Text[5];
 		
@@ -53,6 +52,7 @@ public class ScoreTab extends Tab {
 		gridPane.add(score, 1, 5, 1, 1);
 		
 		this.setContent(gridPane);
+		this.refresh();
 	}
 	
 	public void refresh() {

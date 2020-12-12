@@ -103,20 +103,14 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 				if (isValid(attempt)) {
 					if (containAll(attempt)) {
 						wordPoints = attempt.length() + 7;
-						this.score += wordPoints;
-						this.foundWords.add(attempt);
 						return wordPoints;
 					}
 					if (attempt.length() == 4) {
 						wordPoints = 1;
-						this.score += wordPoints;
-						this.foundWords.add(attempt);
 						return wordPoints;
 					}
 					if (attempt.length() > 4) {
 						wordPoints = attempt.length();
-						this.score += wordPoints;
-						this.foundWords.add(attempt);
 						return wordPoints;
 					}
 				}
@@ -153,13 +147,17 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	@Override
 	public String getMessage(String attempt) {
 		int points = getPointsForWord(attempt);
-		
+		this.score += points;
 		if (points == 0) {
 			if (attempt.length() < 4) {
-				return "Attempt needs to be bigger than 3";
+				return "not bigger than 3";
 			}
-			return "Attempt needs to have a center letter";
+			if (!(attempt.contains(Character.toString(this.centerLet)))) {
+				return "Need center letter";
+			}
+			return "Not valid";
 		}
+		this.foundWords.add(attempt);
 		return "Perfect!";
 	}
 	
@@ -267,13 +265,12 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	 * @return a boolean. True if the word the user entered is a word of the list, false if not.
 	 */
 	private boolean isValid(String attempt) {
-		return this.possibleWords.contains(attempt);
-		/*for (String word : this.possibleWords) {
+		for (String word : this.possibleWords) {
 			if (attempt.equals(word)) {
 				return true;
 			}
 		}
-		return false; */
+		return false;
 	}
 	
 	/**
