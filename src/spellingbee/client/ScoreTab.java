@@ -37,14 +37,14 @@ public class ScoreTab extends Tab {
 		
 		for (int i = 0; i < 5; i++) {
 			scoreNames[i].setFill(Color.GREY);
-			gridPane.add(scoreNames[i], i, 0, 1, 1);
-			gridPane.add(scores[i], i, 1, 1, 1);
+			gridPane.add(scoreNames[i], 0, i, 1, 1);
+			gridPane.add(scores[i], 1, i, 1, 1);
 		}
 		
 		Text scoreText = new Text("Current Score");
 		Text score = new Text(this.currentScore);
-		gridPane.add(scoreText, 5, 0, 1, 1);
-		gridPane.add(score, 5, 1, 1, 1);
+		gridPane.add(scoreText, 0, 5, 1, 1);
+		gridPane.add(score, 1, 5, 1, 1);
 		
 		this.setContent(gridPane);
 	}
