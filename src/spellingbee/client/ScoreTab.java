@@ -6,13 +6,22 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import spellingbee.network.Client;
 
+
+/**
+* Adds the Score Tab, this tab keeps track of the current score and how good the player is doing
+* @author Sergio Segrera
+*/
 public class ScoreTab extends Tab {
 	private Client client;
 	private String currentScore;
 	private int[] bracketsScores;
 	private Text[] scoreNames;
 	private Text score;
-	
+
+	/**
+	 * Parameterized constructor creates the ScoreTab
+	 * @param client
+	*/
 	ScoreTab(Client client) {
 		super("Score");
 		this.client = client;
@@ -55,10 +64,14 @@ public class ScoreTab extends Tab {
 		this.refresh();
 	}
 	
+	/**
+	* refresh calls the server to get the current score and to see if the user has reached a certain milestone
+	*/
 	public void refresh() {
 		this.currentScore = this.client.sendAndWaitMessage("getScore");
 		this.score.setText(this.currentScore);
-		
+
+		// Checks to see if a certain milestone has been reached if yes, change the color of the scoreName to black
 		int currentScoreInt = Integer.parseInt(this.currentScore);
 		for (int i = 0; i < this.bracketsScores.length; i++) {
 			if (currentScoreInt > this.bracketsScores[i]) {
