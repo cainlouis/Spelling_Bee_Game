@@ -14,6 +14,7 @@ import javafx.scene.layout.*;
 public class GameTab extends Tab {
 	private Client client;
 	private GameTabSetting event;
+	private TextField points;
 	
 	/**
 	 * Parameterized constructor creates the GameTab
@@ -83,7 +84,7 @@ public class GameTab extends Tab {
 		TextField resp = new TextField("welcome");
 		resp.setPrefWidth(125);
 		
-		TextField points = new TextField("0");
+		this.points = new TextField("0");
 		points.setPrefWidth(125);
 		
 		//Setting up the event handler on the function buttons
@@ -105,4 +106,7 @@ public class GameTab extends Tab {
 		this.setContent(overall);
 	}
 	
+	public TextField getScoreField() {
+		return this.points;
+	}
 }
