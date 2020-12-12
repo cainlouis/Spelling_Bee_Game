@@ -28,6 +28,10 @@ public class SpellingBeeClient extends Application {
 		ScoreTab score = new ScoreTab(client);
 		//HighScoreTab highScore = new HighScoreTab(client);
 		
+		game.getScoreField().textProperty().addListener((observable, oldText, newText) -> {
+				score.refresh();
+		});
+		
 		//adding them to the tab object
 		tab.getTabs().add(game);
 		tab.getTabs().add(score);
