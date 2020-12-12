@@ -34,7 +34,8 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	 */
 	public SpellingBeeGame() {
 		this.letters = createLettersCombination();
-		this.possibleWords = createWordsFromFile();
+		this.possibleWords = findPossibleWordForCombination(createWordsFromFile());
+		System.out.println(this.possibleWords);
 		this.centerLet = setCenterLetter();
 		this.foundWords.add("");
 		this.brackets = createBrackets();
@@ -119,14 +120,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 						return wordPoints;
 					}
 				}
-				else {
-					return -2;
-				}
 			}
-			else {
-				return -1;
-			}
-			
 		}
 		return wordPoints;
 	} 
@@ -160,8 +154,6 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	public String getMessage(String attempt) {
 		int points = getPointsForWord(attempt);
 		
-		if (points == -1) {
-		}
 		if (points == 0) {
 			if (attempt.length() < 4) {
 				return "Attempt needs to be bigger than 3";
@@ -219,6 +211,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		int total = 0;
 		for (String word : this.possibleWords) {
 			total += getPointsForWord(word);
+			System.out.println(total);
 		}
 		brackets[0] = (int)Math.round(total * 0.25);
 		brackets[1] = (int)Math.round(total * 0.5);
@@ -243,10 +236,10 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	 * Look through the list of word and select the words possible for the combination of letter we get.
 	 * @return Set<String> containing all the possible word for the letters we get.
 	 */
-	private Set<String> findPossibleWordForCombination() {
+	private Set<String> findPossibleWordForCombination(Set<String> words) {
 		Set<String> possibleWordForCombination = new HashSet<String>();
 		//Go through all the word of the file
-		for (String word : this.possibleWords) {
+		for (String word : words) {
 			//if the word contain the center letter and its length is greater than 4.
 			//The words containing less than four letters give 0 point so no point in adding them.
 			if (word.length() >= 4) {
@@ -260,6 +253,7 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 					}
 					//if letters contain all the characters of the word, add the word to the possibleCombination
 					if (word.length() == tracker) {
+						System.out.println(word);
 						possibleWordForCombination.add(word);
 					}
 				}
@@ -274,13 +268,13 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	 * @return a boolean. True if the word the user entered is a word of the list, false if not.
 	 */
 	private boolean isValid(String attempt) {
-		Set<String> possibleWordForCombination = findPossibleWordForCombination();
-		for (String word : possibleWordForCombination) {
+		return this.possibleWords.contains(attempt);
+		/*for (String word : this.possibleWords) {
 			if (attempt.equals(word)) {
 				return true;
 			}
 		}
-		return false;
+		return false; */
 	}
 	
 	/**
