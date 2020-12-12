@@ -18,6 +18,7 @@ import java.util.Set;
  * their information such as the score of the user, the message as a reply for the word and the brackets for the game.
  * @author Jose Carlos Betancourt, Sergio Arturo Segrega, Nael Louis
  *
+ * Sergio: I really enjoyed this project! It was fairly challenging and I found debugging with teammates sorta fun!
  */
 public class SpellingBeeGame implements ISpellingBeeGame {
 	private String letters;
@@ -34,7 +35,6 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	 */
 	public SpellingBeeGame() {
 		this.letters = createLettersCombination();
-		System.out.println(this.possibleWords);
 		this.centerLet = setCenterLetter();
 		this.possibleWords = findPossibleWordForCombination(createWordsFromFile());
 		this.foundWords.add("");
@@ -48,8 +48,9 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 	 */
 	public SpellingBeeGame(String letters) {
 		this.letters = letters;
-		this.possibleWords = createWordsFromFile();
 		this.centerLet = setCenterLetter();
+		this.possibleWords = findPossibleWordForCombination(createWordsFromFile());
+		this.foundWords.add("");
 		this.brackets = createBrackets();
 	}
 	

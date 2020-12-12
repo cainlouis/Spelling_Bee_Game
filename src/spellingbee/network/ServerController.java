@@ -50,11 +50,6 @@ public class ServerController {
 		 } else if (inputLine.contains("getScore")) {
 			 return Integer.toString(spellingBee.getScore());
 		 }
-		 //Change the inputLine
-		 /*else if (inputLine.equals()) {
-			 String[] highScore = inputLine.split(":");
-			 return ""+ highScore[1] + ":" + spellingBee.getScore();
-		 } */
 		return null;
 	}
 }
