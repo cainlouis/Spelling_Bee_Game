@@ -26,7 +26,7 @@ public class SpellingBeeClient extends Application {
 		TabPane tab = new TabPane();
 		GameTab game = new GameTab(client);
 		ScoreTab score = new ScoreTab(client);
-		//HighScoreTab highScore = new HighScoreTab(client);
+		HighScoreTab highScore = new HighScoreTab(client);
 		
 		game.getScoreField().textProperty().addListener((observable, oldText, newText) -> {
 				score.refresh();
@@ -35,7 +35,7 @@ public class SpellingBeeClient extends Application {
 		//adding them to the tab object
 		tab.getTabs().add(game);
 		tab.getTabs().add(score);
-		//tab.getTabs().add(highScore);
+		tab.getTabs().add(highScore);
 		
 		//Setting the tab object before adding it to the root
 		tab.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);

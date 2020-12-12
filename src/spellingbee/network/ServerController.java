@@ -2,6 +2,7 @@ package spellingbee.network;
 
 import spellingbee.client.SimpleSpellingBeeGame;
 import spellingbee.server.*;
+import spellingbee.client.HighScores;
 
 /**
  * This class will run on the server side and is used to connect the server code to the backend business code.
@@ -13,6 +14,10 @@ public class ServerController {
 	// This means you can work with either the SpellingBeeGame OR SimpleSpellingBeeGame objects and can
 	// seamlessly change between the two.
 	private ISpellingBeeGame spellingBee = new SpellingBeeGame();
+	
+	final String p = "\\scores.txt";
+	private HighScores playerHighScore = new HighScores();
+	
 	
 	/**
 	 * Action is the method where the protocol translation takes place.
@@ -50,11 +55,18 @@ public class ServerController {
 		 } else if (inputLine.contains("getScore")) {
 			 return Integer.toString(spellingBee.getScore());
 		 }
-		 //Change the inputLine
-		 /*else if (inputLine.equals()) {
+		 else if (inputLine.equals("submitHighScore")) {
+ 			 playerHighScore = new HighScores(p);
 			 String[] highScore = inputLine.split(":");
-			 return ""+ highScore[1] + ":" + spellingBee.getScore();
-		 } */
+			 String playerScore = ""+ highScore[1] + ";" + spellingBee.getScore();
+			 
+			 String[] playerScores = playerScore.split(";");
+			 String player = playerScores[0];
+			 String score = playerScores[1];
+			 playerHighScore.addResult(player, score);
+			 playerHighScore.saveResults(p);
+			 return playerScore;
+		 }
 		return null;
 	}
 }
