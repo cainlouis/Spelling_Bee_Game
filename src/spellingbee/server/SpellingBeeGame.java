@@ -209,7 +209,6 @@ public class SpellingBeeGame implements ISpellingBeeGame {
 		int total = 0;
 		for (String word : this.possibleWords) {
 			total += getPointsForWord(word);
-			System.out.println(total);
 		}
 		brackets[0] = (int)Math.round(total * 0.25);
 		brackets[1] = (int)Math.round(total * 0.5);
